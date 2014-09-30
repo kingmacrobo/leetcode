@@ -28,7 +28,7 @@ class Solution:
                     hashmap[slope] = 1
             tmp = samePoint
             if len(hashmap.values()) > 0:
-                   tmp += max(hashmap.values())
+                tmp += max(hashmap.values())
             if tmp > ret:
                 ret = tmp
         return ret
