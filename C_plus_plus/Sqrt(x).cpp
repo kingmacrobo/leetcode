@@ -1,3 +1,4 @@
+//method1
 class Solution {
 public:
     int sqrt(int x) {
@@ -15,5 +16,21 @@ public:
                 end = k-1;
         }
         return result;
+    }
+};
+
+//method2
+class Solution {
+public:
+    int sqrt(int x) {
+        int ans = 0;
+        int bit = 1 << 16;
+        while(bit > 0) {
+            ans |= bit;
+            if (ans  > x/ans)
+                ans ^= bit;
+            bit >>= 1;
+        }
+        return ans;
     }
 };
