@@ -7,24 +7,12 @@ public:
             int area = (height[i]<height[j]?height[i]:height[j])*(j-i);
             if(max < area) max = area;
             if(height[i]<height[j]){
-                int k = i+1;
-                while(k<j){
-                    if(height[k]>height[i])
-                        break;
-                    ++k;
-                }
-                if(k>=j) break;
-                i = k;
+                int k = i++;
+                while(i<j&&height[i]<=height[k]) ++i;
             }
             else{
-                int k = j-1;
-                while(k>i){
-                    if(height[k]>height[j])
-                        break;
-                    --k;
-                }
-                if(k<=i) break;
-                j = k;
+                int k = j--;
+                while(i<j&&height[j]<=height[k]) --j;
             }
         }
         return max;
