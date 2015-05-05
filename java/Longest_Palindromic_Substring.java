@@ -1,4 +1,5 @@
 // method1 : use dp
+// time is O(n^2) space is O(n^2)
 // recurse formula: 
 //    dp(i,j) = max{dp(i,j-1),dp(i+1,j)}  , s(i~j) isn't a palindromic.
 //    dp(i,j) = j - i + 1 , s(i~j) is a palindromic
