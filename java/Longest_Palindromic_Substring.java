@@ -60,3 +60,48 @@ public class Solution {
         int max ; 
     }
 }
+
+// method2 : search in two side
+// time is O(n^2)
+// we should consider odd and even cases.
+
+public class Solution {
+    public String longestPalindrome(String s) {
+        int n = s.length() ;
+        int start = 0, end = 0, max = 1;
+        if (n == 0 ) return null;
+        // odd
+        for (int i = 0 ; i < n ; ++i) {
+            int low = i - 1 , high = i + 1;
+            while(low >= 0 && high <= n - 1 ) {
+                if (s.charAt(low) != s.charAt(high)) {
+                    break ;
+                }
+                if (high - low + 1 > max) {
+                    max = high - low + 1 ;
+                    start = low ;
+                    end = high ;
+                }
+                --low ;
+                ++high ;
+            }
+        }
+        //even
+        for (int i = 0 ; i < n ; ++i) {
+            int low = i , high = i + 1 ;
+            while (low >= 0 && high <= n - 1 ) {
+                if (s.charAt(low) != s.charAt(high)) {
+                    break ;
+                }
+                if (high - low + 1 > max ) {
+                    max = high - low + 1 ;
+                    start = low ;
+                    end = high ;
+                }
+                --low ;
+                ++high ;
+            }
+        }
+        return s.substring(start,end+1) ;
+    }
+}
