@@ -54,3 +54,39 @@ public boolean isMatch(String s, String p) {
 		return record[i][j] = 0;
 	}
 }
+
+// a simple solution also use dp
+
+public class Solution {
+    public boolean isMatch(String s, String p) {
+        int[][] record = new int[s.length()][p.length()];
+        for (int i = 0; i < s.length(); ++i)
+            for (int j = 0; j < p.length(); ++j)
+                record[i][j] = -1;
+        return dp(s,p,0,0,record) == 1;
+    }
+    public int dp(String s,String p,int i,int j,int[][] record) {
+        if (s.length() == i) {
+            if (p.length() > j + 1 && p.charAt(j+1) == '*') {
+                return dp(s,p,i,j+2,record);
+            }
+            return p.length()==j?1:0 ;
+        }
+        if (p.length() == j) return 0 ;
+        if (record[i][j] != -1) return record[i][j] ;
+        char a = s.charAt(i), b = p.charAt(j);
+        if (a == b || b == '.') {
+            if (p.length() > j + 1  && p.charAt(j+1) == '*') {
+                if (dp(s,p,i,j+2,record)==1||dp(s,p,i+1,j,record)==1||dp(s,p,i+1,j+2,record)==1)
+                    return record[i][j] = 1;
+                return record[i][j] = 0;
+            }
+            else {
+                return record[i][j] = dp(s,p,i+1,j+1,record);
+            }
+        }
+        if (p.length() > j + 1  && p.charAt(j+1) == '*')
+            return record[i][j] = dp(s,p,i,j+2,record) ;
+        return record[i][j] = 0 ;
+    }
+}
