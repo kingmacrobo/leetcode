@@ -1,6 +1,6 @@
 // first sort the array
 // then, find the answer using two point strategy
-// time is O(n^2), space is O(n)
+// time is O(n^3), space is O(n)
 public class Solution {
     public List<List<Integer>> fourSum(int[] nums, int target) {
         List<List<Integer>> result = new ArrayList<List<Integer>>();
