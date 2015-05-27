@@ -24,3 +24,24 @@ public class Solution {
         return result;
     }
 }
+
+// To reduce the time complexity, we can use binary search method.
+// The time is O(logn), space is O(logn) since our method is recurse.
+public class Solution {
+    public double myPow(double x, int n) {
+        if (n == 0) return 1;
+        if (x == 0) return 0;
+        if (n < 0) { 
+            x = 1.0/x;
+            n = -n;
+        }
+        if (n%2 == 0) {
+            double temp = myPow(x,n/2);
+            return temp*temp;
+        } 
+        else {
+            double temp =  myPow(x,(n-1)/2);
+            return temp*temp*x;
+        }
+    }
+}
