@@ -21,3 +21,6 @@ public class Solution {
         }
     }
 }
+
+// extern: if we rotate the image 180 degrees, the formula is 
+//    (x,y) => (n-x-1,n-y-1)
