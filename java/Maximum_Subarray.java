@@ -21,3 +21,32 @@ public class Solution {
         return Math.max(max,sum);
     }
 }
+
+// A simpler solution
+// Also one pass
+public class Solution {
+    public int maxSubArray(int[] nums) {
+        int curSum = nums[0], maxSum = nums[0];
+        for (int i = 1; i < nums.length; ++i) {
+            curSum = Math.max(curSum+nums[i], nums[i]);
+            maxSum = Math.max(curSum, maxSum);
+        }
+        return maxSum;
+    }
+}
+
+// Some one's dp solution
+// maxSubArray(int A[], int i), which means the maxSubArray for A[0:i ] which must has A[i] as the end element.
+// maxSubArray(A, i) = maxSubArray(A, i - 1) > 0 ? maxSubArray(A, i - 1) : 0 + A[i]; 
+
+public int maxSubArray(int[] A) {
+        int n = A.length;
+        int[] dp = new int[n];//dp[i] means the maximum subarray ending with A[i];
+        dp[0] = A[0];
+        int max = dp[0];
+        for(int i = 1; i < n; i++){
+            dp[i] = A[i] + (dp[i - 1] > 0 ? dp[i - 1] : 0);
+            max = Math.max(max, dp[i]);
+        }
+        return max;
+} 
