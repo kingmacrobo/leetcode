@@ -21,3 +21,26 @@ public class Solution {
         return dp[m][n];
     }
 }
+
+// we can reduce the space to O(n) by using roll array:
+public class Solution {
+    public int uniquePathsWithObstacles(int[][] obstacleGrid) {
+        int m = obstacleGrid.length, n = obstacleGrid[0].length;
+        int[] pre = new int[n+1], cur = new int[n+1];
+        for (int i = 0; i < n+1; ++i) pre[i] = 0;
+        pre[1] = 1;
+        cur[0] = 0;
+        for (int i = 1; i < m+1; ++i) {
+            for (int j = 1; j < n+1; ++j) {
+                if (obstacleGrid[i-1][j-1] == 1) 
+                    cur[j] = 0;
+                else 
+                    cur[j] = cur[j-1] + pre[j];
+            }
+            int[] temp = pre;
+            pre = cur;
+            cur = temp;
+        }
+        return pre[n];
+    }
+}
