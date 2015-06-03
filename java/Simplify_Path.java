@@ -31,3 +31,18 @@ public class Solution {
         return sb.toString();
     }
 }
+
+// Other's method by using string.split
+public String simplifyPath(String path) {
+    List<String> stack = new LinkedList<>();
+    for (String dir : path.split("/")) {
+        if (dir.equals("..")) {
+            if (stack.size() > 0) stack.remove(stack.size()-1);
+        }
+        else if (dir.length() > 0 && !dir.equals(".")) 
+            stack.add(dir);
+    }
+    StringBuilder res = new StringBuilder();
+    for (String dir : stack) res.append('/' + dir);
+    return res.length() == 0 ? "/" : res.toString();
+}
