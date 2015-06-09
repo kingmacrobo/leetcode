@@ -47,3 +47,19 @@ public class Solution {
         return C[n] = result;
     }
 }
+
+// Actually, it's the Catalan Number
+// We can change the above method to iteration
+// Time is O(n^2), space is O(n).
+
+public class Solution {
+    public int numTrees(int n) {
+        int[] C = new int[n+1];
+        Arrays.fill(C,0);
+        C[1] = C[0] = 1;
+        for (int i = 2; i <= n; ++i)
+            for (int j = 1; j <= i; ++j)
+                C[i] += C[j-1]*C[i-j];
+        return C[n];
+    }
+}
