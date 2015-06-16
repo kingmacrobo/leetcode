@@ -36,3 +36,38 @@ public class Solution {
         return node;
     }
 }
+
+// we can also construct the tree first and then set the values to the tree,
+// in which we just pass the list twice.
+// Time is O(n), space is O(n).
+
+public class Solution {
+    private ListNode p = null;
+    public TreeNode sortedListToBST(ListNode head) {
+        int count = 0;
+        ListNode node = head;
+        p = head;
+        while (node != null) {
+            count++;
+            node = node.next;
+        }
+        if (count == 0) return null;
+        TreeNode root = constructTree(count);
+        setTree(root);
+        return root;
+    }
+    public TreeNode constructTree(int count) {
+        if (count <= 0) return null;
+        TreeNode node = new TreeNode(0);
+        int l = (count-1)/2, r = count - l - 1;
+        node.left = constructTree(l);
+        node.right = constructTree(r);
+        return node;
+    }
+    public void setTree(TreeNode root) {
+        if (root.left != null) setTree(root.left);
+        root.val = p.val;
+        p = p.next;
+        if (root.right != null) setTree(root.right);
+    }
+}
