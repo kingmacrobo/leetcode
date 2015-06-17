@@ -71,3 +71,33 @@ public class Solution {
         if (root.right != null) setTree(root.right);
     }
 }
+
+// The above method uses setTree method, which is not necessery.
+// We can put the setTree value process into the constructTree process by putting value in node between left and right.
+// Time is O(n), space is O(n).
+
+public class Solution {
+    private ListNode p = null;
+    public TreeNode sortedListToBST(ListNode head) {
+        int count = 0;
+        ListNode node = head;
+        p = head;
+        while (node != null) {
+            count++;
+            node = node.next;
+        }
+        if (count == 0) return null;
+        TreeNode root = constructTree(count);
+        return root;
+    }
+    public TreeNode constructTree(int count) {
+        if (count <= 0) return null;
+        int l = (count-1)/2, r = count - l - 1;
+        TreeNode node = new TreeNode(0);
+        node.left = constructTree(l);
+        node.val = p.val;
+        p = p.next;
+        node.right = constructTree(r);
+        return node;
+    }
+}
