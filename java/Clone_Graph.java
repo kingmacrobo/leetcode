@@ -38,3 +38,21 @@ public class Solution {
         return table.get(node);
     }
 }
+
+// DFS soluiton :
+
+public class Solution {
+    public UndirectedGraphNode cloneGraph(UndirectedGraphNode node) {
+        HashMap<UndirectedGraphNode, UndirectedGraphNode> visited = new HashMap<UndirectedGraphNode, UndirectedGraphNode>();
+        return node == null ? null : dfs(node, visited);
+    }
+    public UndirectedGraphNode dfs(UndirectedGraphNode node, HashMap<UndirectedGraphNode, UndirectedGraphNode> visited) {
+        if (visited.containsKey(node)) return visited.get(node);
+        UndirectedGraphNode n = new UndirectedGraphNode(node.label);
+        visited.put(node,n);
+        for (UndirectedGraphNode u : node.neighbors) {
+            n.neighbors.add(dfs(u, visited));
+        }
+        return n;
+    }
+}
