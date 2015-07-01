@@ -31,3 +31,20 @@ public class Solution {
         return -1;
     }
 }
+
+// No extra space solution, Greedy.
+
+public class Solution {
+    public int canCompleteCircuit(int[] gas, int[] cost) {
+        int n = gas.length, pre = 0, sum = 0, loc = 0;
+        for (int i = 0; i < n; ++i) {
+            if ((sum += gas[i]-cost[i]) < 0) {
+                pre += sum;
+                sum = 0;
+                loc = i+1;
+            }
+            else if (i == n-1 && sum + pre >= 0) return loc;
+        }
+        return -1;
+    }
+}
