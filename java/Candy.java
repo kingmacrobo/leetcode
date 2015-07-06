@@ -44,3 +44,26 @@ public class Solution {
         return sum;
     }
 }
+
+// Another solution using extra space:
+// Time is O(n), space is O(n).
+
+public class Solution {
+    public int candy(int[] ratings) {
+        int sum = 0, n = ratings.length;
+        int[] num = new int[n];
+        Arrays.fill(num,1);
+        for (int i= 1; i < n; ++i) {
+            if (ratings[i]  > ratings[i-1])
+                num[i] = num[i-1]+1;
+        }
+        for (int i = n-2; i >= 0; --i) {
+            if (ratings[i] > ratings[i+1]) {
+                num[i] = Math.max(num[i],num[i+1]+1);
+            }
+        }
+        for (int i = 0; i < n; ++i)
+            sum += num[i];
+        return sum;
+    }
+}
