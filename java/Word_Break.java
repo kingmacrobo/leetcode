@@ -1,6 +1,6 @@
 // Dp solution
 // dp[k] represent if the substring(k,end) of s can be seperated to words in dictionary.
-// Time is about O(n), space is O(n);
+// Time is about O(n^2), space is O(n);
 
 public class Solution {
     public boolean wordBreak(String s, Set<String> wordDict) {
