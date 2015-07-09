@@ -1,0 +1,26 @@
+// One pass solution
+// Time is O(n), space is O(n).
+
+public class Solution {
+    public String reverseWords(String s) {
+        StringBuilder sb = new StringBuilder();
+        int i = 0, n = s.length();
+        while (i < n) {
+            while (i < n && s.charAt(i) == ' '){
+                i++;
+                continue;
+            }
+            if (i == n) break;
+            int j = i;
+            while (j < n && s.charAt(j) != ' ') {
+                j++;
+                continue;
+            }
+            if (sb.length() != 0)
+                sb.insert(0,' ');
+            sb.insert(0,s.substring(i,j));
+            i = j;
+        }
+        return sb.toString();
+    }
+}
