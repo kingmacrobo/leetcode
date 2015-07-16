@@ -6,7 +6,6 @@
 public class Solution {
 	    public int rangeBitwiseAnd(int m, int n) {
 	        int result = 0;
-	        if (m == n) return m;
 	        for (int i = 0; i < 31; ++i) {
 	            int val = 1 << i;
 	            int a = val << 1;
