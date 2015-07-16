@@ -1,5 +1,5 @@
 // Prime method : Filter Method！------Sieve of Eratosthenes : https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes
-// Time todo , space O(n).
+// Time O(n*loglogn) , space O(n).
 
 public class Solution {
     public int countPrimes(int n) {
