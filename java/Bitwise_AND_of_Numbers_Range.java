@@ -1,7 +1,7 @@
 // Bit Manipulation
 // If one value's kth bit is 0, the result's kth bit is 0.
 // So we just find whether the kth bit of the values could be 0 or not.
-// Time is O(32), space is O(1).
+// Time is O(logn), space is O(1).
 
 public class Solution {
 	    public int rangeBitwiseAnd(int m, int n) {
@@ -16,3 +16,17 @@ public class Solution {
 	        return result;
 	    }
 }
+
+
+// Another brilliant solution : find the comment prefix of m and n;
+// Time is O(logn), space is O(1).
+
+public int rangeBitwiseAnd(int m, int n) {
+        int count = 0;
+        while(m != n){
+            m >>= 1;
+            n >>= 1;
+            count++;
+        }
+        return m<<=count;
+    }
