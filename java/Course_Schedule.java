@@ -42,3 +42,33 @@ public class Solution {
         }
     }
 }
+
+// Topological Sort !
+// Time is O(n^2), space is O(n^2).
+
+public class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] inDegree = new int[numCourses];
+        Arrays.fill(inDegree,0);
+        List<List<Integer>> graph = new ArrayList<List<Integer>>();
+        for (int i = 0; i < numCourses; ++i) 
+            graph.add(new ArrayList<Integer>());
+        for (int i = 0; i < prerequisites.length; ++i) {
+            int a = prerequisites[i][0];
+            int b = prerequisites[i][1];
+            graph.get(a).add(b);
+            inDegree[b]++;
+        }
+        for (int i = 0; i < numCourses; ++i) {
+            int j = 0;
+            for (; j < numCourses; ++j) {
+                if (inDegree[j] == 0) break;
+            }
+            if (j == numCourses) return false;
+            for (Integer k : graph.get(j))
+                inDegree[k]--;
+            inDegree[j] = -1;
+        }
+        return true;
+    }
+}
