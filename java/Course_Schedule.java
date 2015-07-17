@@ -72,3 +72,34 @@ public class Solution {
         return true;
     }
 }
+
+// Topologic Sort by DFS
+// Time is O(n), space is O(n^2).
+
+public class Solution {
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] inDegree = new int[numCourses];
+        Stack<Integer> stack = new Stack<Integer>();
+        Arrays.fill(inDegree,0);
+        List<List<Integer>> graph = new ArrayList<List<Integer>>();
+        for (int i = 0; i < numCourses; ++i) 
+            graph.add(new ArrayList<Integer>());
+        for (int i = 0; i < prerequisites.length; ++i) {
+            int a = prerequisites[i][0];
+            int b = prerequisites[i][1];
+            graph.get(a).add(b);
+            inDegree[b]++;
+        }
+        for (int i = 0; i < numCourses; ++i) {
+            if (inDegree[i] == 0) stack.push(i);
+        }
+        for (int i = 0; i < numCourses; ++i) {
+            if (stack.empty()) return false;
+            int j = stack.pop();
+            for (Integer k : graph.get(j)) {
+                if (--inDegree[k] == 0) stack.push(k);
+            }
+        }
+        return true;
+    }
+}
