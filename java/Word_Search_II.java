@@ -1,3 +1,8 @@
+// Trie + DFS
+// Constuct the trie by the searching words
+// and then find the result in the board by dfs.
+// Time is TODO, space is TODO.
+
 public class Solution {
     TrieNode root = new TrieNode();
     Set<String> set = new HashSet<String>();
