@@ -72,3 +72,36 @@ public class Solution {
         return pq.peek();
     }
 }
+
+// Heap Sort method without using priority queue:
+
+public class Solution {
+    public int findKthLargest(int[] nums, int k) {
+        int[] kHeap = new int[k];
+        for (int i = 0; i < k; ++i)
+            kHeap[i] = nums[i];
+        fixHeap(kHeap);
+        for (int i = k; i < nums.length; ++i) {
+            if (nums[i] > kHeap[0]) {
+                kHeap[0] = nums[i];
+                fixDownHeap(kHeap,0);
+            }
+        }
+        return kHeap[0];
+    }
+    public void fixHeap(int[] kHeap) {
+        for (int i = kHeap.length/2-1; i >= 0; --i)
+            fixDownHeap(kHeap,i);
+    }
+    public void fixDownHeap(int[] kHeap, int loc) {
+        int left = loc*2+1, right = loc*2+2, n = kHeap.length, minLoc = -1;
+        if (left >= n) return;
+        if (right >= n) minLoc = left;
+        else minLoc = kHeap[left] < kHeap[right] ? left : right;
+        if (kHeap[loc] <= kHeap[minLoc]) return;
+        kHeap[loc]    ^= kHeap[minLoc];
+        kHeap[minLoc] ^= kHeap[loc];
+        kHeap[loc]    ^= kHeap[minLoc];
+        fixDownHeap(kHeap, minLoc);
+    }
+}
