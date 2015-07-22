@@ -1,0 +1,24 @@
+// Backtracking method
+// From 1 to 9 , backtracking to find the answer.
+// Time is O(9!), space is TODO.
+
+public class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> result = new ArrayList<List<Integer>>();
+        List<Integer> list = new ArrayList<Integer>();
+        combination(result, list, 1, n, k, 0);
+        return result;
+    }
+    public void combination(List<List<Integer>> result, List<Integer> list, int start, int n, int k, int sum) {
+        if (k == 0) {
+            if (sum == n) result.add(new ArrayList<Integer>(list));
+            return ;
+        }
+        if (sum >= n) return;
+        for (int i = start; i <= 9; ++i) {
+            list.add(i);
+            combination(result, list, i+1, n, k-1, sum+i);
+            list.remove(list.size()-1);
+        }
+    }
+}
