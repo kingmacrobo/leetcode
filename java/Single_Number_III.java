@@ -1,3 +1,9 @@
+// Bit manipulation
+// Xor all the numbers to find the a^b
+// find a 1 bit in a^b and divide the nums to two group
+// xor each group to find the answer.
+// Time is O(n), space is O(1).
+
 public class Solution {
     public int[] singleNumber(int[] nums) {
         int xall = 0;
