@@ -41,3 +41,53 @@ public class Solution {
         return hasZero ? Math.max(0,max) : max;
     }
 }
+
+// Another solution :
+// Time also O(n), space also O(1).
+
+public class Solution {
+    public int maxProduct(int[] nums) {
+        int product = 1, firstNeg = 1, preNeg = 1, max = 0;
+        int firstLoc = -1, preLoc = -1, count = 0;
+        boolean first = false, noZero = false, hasZero = false;
+        for (int i = 0; i <= nums.length; ++i) {
+            if (i == nums.length || nums[i] == 0) {
+                if (i != nums.length) hasZero = true;
+                if (!noZero) continue;
+                if (count == 1) max = max == 0 ? product : Math.max(max,product);
+                else {
+                    max = Math.max(max,Math.max(product, Math.max(product/preNeg, product/firstNeg)));
+                    if (firstLoc != -1) {
+                        max = Math.max(max, firstNeg/nums[firstLoc]);
+                        max = Math.max(max, preNeg/nums[preLoc]);
+                    }
+                }
+                product = firstNeg = preNeg = 1;
+                firstLoc = preLoc = -1;
+                noZero = first = false;
+                count = 0;
+            }
+            else {
+                count++;
+                noZero = true;
+                product *= nums[i];
+                if (nums[i] < 0) {
+                    if (!first) {
+                        firstLoc = i;
+                        first = true;
+                        firstNeg *= nums[i];
+                    }
+                    preLoc = i;
+                    preNeg = nums[i];
+                }
+                else {
+                    preNeg *= nums[i];
+                }
+                if (!first) {
+                    firstNeg *= nums[i];
+                }
+            }
+        }
+        return hasZero ? Math.max(max,0) : max;
+    }
+}
