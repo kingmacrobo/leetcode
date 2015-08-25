@@ -34,3 +34,44 @@ public class Solution {
             return findkth(nums1,nums2,a1,b1,a2+offset2,b2,k-offset2);
     }
 }
+
+// Another solution:
+
+public class Solution {
+    public double findMedianSortedArrays(int[] nums1, int[] nums2) {
+        int k = nums1.length + nums2.length;
+        double a = findKth(nums1, nums2, 0, 0, (k+1)/2);
+        double b = findKth(nums1, nums2, 0, 0, k/2+1);
+        return (a+b)/2;
+    }
+    
+    public int findKth(int[] nums1, int[] nums2, int i, int j, int k) {
+        if (i == nums1.length) return nums2[j+k-1];
+        if (j == nums2.length) return nums1[i+k-1];
+        if (k == 1) return Math.min(nums1[i],nums2[j]);
+        int a = i+k/2-1, b = j+k/2-1;
+        if (a >= nums1.length) {
+            a = nums1.length-1;
+            if (nums1[a] <= nums2[b]) {
+                return nums2[j + k-(a-i+1)-1];
+            }
+            else return findKth(nums1, nums2, i, b+1, k-k/2);
+        }
+        else if (b >= nums2.length) {
+            b = nums2.length-1;
+            if (nums2[b] <= nums1[a]) {
+                return nums1[i + k - (b-j+1)-1];
+            }
+            else return findKth(nums1, nums2, a+1, j, k- k/2);
+        }
+        else {
+            if (nums1[a] == nums2[b]) {
+                if (k%2 == 0) return nums1[a];
+                else return findKth(nums1, nums2, a+1, b+1, k - 2*(k/2));
+            }
+            else if (nums1[a] < nums2[b]) return findKth(nums1, nums2, a+1, j, k - k/2);
+            else return findKth(nums1, nums2, i, b+1, k - k/2);
+        }
+        
+    }
+}
