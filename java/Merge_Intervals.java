@@ -44,27 +44,33 @@ public class Solution {
 }
 
 
-// Another clean solution :
+// First sort the list by the start point,
+// and then pass once to merge the intervals
+// Time is O(nlogn), space is O(n);
+
 public class Solution {
     public List<Interval> merge(List<Interval> intervals) {
-        Collections.sort(intervals, new Comparator<Interval>(){
+        List<Interval> result = new ArrayList<Interval>();
+        if (intervals.size() == 0) return result;
+        Collections.sort(intervals, new Comparator<Interval>() {
             @Override
-            public int compare(Interval obj0, Interval obj1) {
-                return obj0.start - obj1.start;
+            public int compare(Interval a, Interval b) {
+                if (a.start == b.start) return 0;
+                return a.start < b.start ? -1 : 1;
             }
         });
-
-        List<Interval> ret = new ArrayList<>();
-        Interval prev = null;
-        for (Interval inter : intervals) {
-            if (  prev==null || inter.start>prev.end ) {
-                ret.add(inter);
-                prev = inter;
-            } else if (inter.end>prev.end) {
-                // Modify the element already in list
-                prev.end = inter.end;
+        Interval cur = intervals.get(0);
+        for (int i = 1; i < intervals.size(); ++i) {
+            Interval in = intervals.get(i);
+            if (in.start > cur.end) {
+                result.add(new Interval(cur.start, cur.end));
+                cur = in; 
+            }
+            else {
+                cur.end = Math.max(cur.end, in.end);
             }
         }
-        return ret;
+        result.add(new Interval(cur.start, cur.end));
+        return result;
     }
 }
