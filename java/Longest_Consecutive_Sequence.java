@@ -28,3 +28,25 @@ public class Solution {
         return max;
     }
 }
+
+// HashMap + Dp :
+// Time O(n), space O(n).
+
+public class Solution {
+    public int longestConsecutive(int[] nums) {
+        HashMap<Integer, Integer> table = new HashMap<Integer, Integer>();
+        for (int a : nums) table.put(a, 0);
+        int max = 0;
+        for (int a : nums) {
+            max = Math.max(max, findconsecutive(table, a));
+        }
+        return max;
+    }
+    public int findconsecutive(HashMap<Integer, Integer> table, int a) {
+        if (!table.containsKey(a)) return 0;
+        if (table.get(a) != 0) return table.get(a);
+        int k = findconsecutive(table, a+1);
+        table.put(a, k+1);
+        return k+1;
+    }
+}
