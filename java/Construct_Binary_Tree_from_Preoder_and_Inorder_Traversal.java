@@ -52,3 +52,23 @@ public class Solution {
         return node;
     }
 }
+
+
+// Using hashtable to optimize the search of inorder array:
+
+public class Solution {
+    int index = 0;
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        HashMap<Integer, Integer> loc = new HashMap<Integer, Integer>();
+        for (int i = 0; i < inorder.length; ++i) loc.put(inorder[i], i);
+        return construct(preorder,inorder, 0, inorder.length-1, loc);
+    }
+    public TreeNode construct(int[] preorder, int[] inorder, int i, int j, HashMap<Integer, Integer> loc) {
+        if (i > j) return null;
+        TreeNode node = new TreeNode(preorder[index++]);
+        int k = loc.get(node.val);
+        node.left = construct(preorder, inorder, i, k-1, loc);
+        node.right = construct(preorder, inorder, k+1, j, loc);
+        return node;
+    }
+}
