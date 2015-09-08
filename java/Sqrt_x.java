@@ -19,3 +19,17 @@ public class Solution {
         return (int)low;
     }
 }
+
+// Another short solution
+public class Solution {
+    public int mySqrt(int x) {
+        long i = 0, j = x;
+        while (i <= j) {
+            long m = (i+j)/2;
+            if (m*m == x) return (int)m;
+            if (m*m < x) i = m+1;
+            else j = m - 1;
+        }
+        return (int)j;
+    }
+}
