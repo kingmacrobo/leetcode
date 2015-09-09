@@ -48,3 +48,31 @@ public class Solution {
 		deal(nums, k - cur * mul, sb);
 	}
 }
+
+
+// iterator solution:
+// Time O(n), space O(n).
+public class Solution {
+    public String getPermutation(int n, int k) {
+        int m = 1;
+        for (int i = 1; i <= n; ++i) m *= i;
+        String ret = "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= n; ++i) sb.append(i);
+        while (k < m) {
+            m /= n;
+            n--;
+            int index = k/m;
+            if (k % m == 0) {
+                ret += sb.charAt(index-1);
+                sb.deleteCharAt(index-1);
+                break;
+            }
+            ret += sb.charAt(index);
+            sb.deleteCharAt(index);
+            k -= index*m;
+        }
+        return ret + sb.reverse().toString();
+        
+    }
+}
