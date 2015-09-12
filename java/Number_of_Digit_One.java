@@ -14,3 +14,31 @@ public class Solution {
         return (int)result;
     }
 }
+
+
+// Another esay understand method :
+// Caculate the two side numbers at each ten digit bit.
+// Time is O(logn), space is O(1).
+
+public class Solution {
+    public int countDigitOne(int n) {
+        long k = 1, count = 0, bit = 0;
+        while (n/k > 0) {
+            long m = (n % (k*10))/k;
+            long b = (n % k) + 1;
+            long a = n / (k*10) + 1;
+            if (m == 0) {
+                count += (a-1) * k;
+            }
+            else if (m == 1){
+                count += (a-1) * k + b;
+            }
+            else {
+                count += a * k;
+            }
+            bit++;
+            k *= 10;
+        }
+        return (int)count;
+    }
+}
